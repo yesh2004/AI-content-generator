@@ -4,8 +4,8 @@ import { Button, Input, Textarea, Typography } from '@material-tailwind/react'
 import MarkDown from "react-markdown"
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-function Blog() {
-    const[blog,setBlog]=useState("*The results will load here*")
+function Email() {
+    const[email,setEmail]=useState("*The results will load here*")
     const [topic,setTopic]=useState("")
     const [title,setTitle]=useState("")
     const [isAuth,setIsAuth]=useState(false)
@@ -27,11 +27,11 @@ function Blog() {
     //<Textarea size="lg" className='disabled !h-[600px] text-[18px]' placeholder="The result will take 10-15 seconds to load" value={blog}/>
     const createBlog=()=>{
       isLoading(true)
-      axios.post("http://localhost:8000/createblog",{"title":`${topic}`})
+      axios.post("http://localhost:8000/createemail",{"title":`${topic}`})
       .then((res)=>{
         console.log(JSON.stringify(res.data))
         console.log(res.data["title"])
-        setBlog(res.data["content"])
+        setEmail(res.data["content"])
         setTitle(res.data["title"])
         isLoading(false)
       }).catch(err=>{
@@ -45,7 +45,7 @@ function Blog() {
     <Nav isAuth={isAuth} />
     <div className="sec">
     <Typography variant='h3' color="gray">
-        Create a Blog With AI
+        Create an Email Template With AI
     </Typography>
     <Input label="Type The Topic Here" value={topic} onChange={(e)=>setTopic(e.target.value)} />
     {!loading?
@@ -66,7 +66,7 @@ function Blog() {
   }
     
     <MarkDown className="mt-2 markdown" placeholder="The result will take 10-15 seconds to load">
-      {blog}
+      {email}
       </MarkDown>
     </div>
     </div>
@@ -75,4 +75,4 @@ function Blog() {
   )
 }
 
-export default Blog
+export default Email

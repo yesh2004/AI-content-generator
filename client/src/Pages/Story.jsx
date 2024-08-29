@@ -4,8 +4,8 @@ import { Button, Input, Textarea, Typography } from '@material-tailwind/react'
 import MarkDown from "react-markdown"
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-function Blog() {
-    const[blog,setBlog]=useState("*The results will load here*")
+function Story() {
+    const[story,setStory]=useState("*The results will load here*")
     const [topic,setTopic]=useState("")
     const [title,setTitle]=useState("")
     const [isAuth,setIsAuth]=useState(false)
@@ -27,11 +27,11 @@ function Blog() {
     //<Textarea size="lg" className='disabled !h-[600px] text-[18px]' placeholder="The result will take 10-15 seconds to load" value={blog}/>
     const createBlog=()=>{
       isLoading(true)
-      axios.post("http://localhost:8000/createblog",{"title":`${topic}`})
+      axios.post("http://localhost:8000/createstory",{"title":`${topic}`})
       .then((res)=>{
         console.log(JSON.stringify(res.data))
         console.log(res.data["title"])
-        setBlog(res.data["content"])
+        setStory(res.data["content"])
         setTitle(res.data["title"])
         isLoading(false)
       }).catch(err=>{
@@ -45,14 +45,18 @@ function Blog() {
     <Nav isAuth={isAuth} />
     <div className="sec">
     <Typography variant='h3' color="gray">
-        Create a Blog With AI
+        Create a Story With AI
     </Typography>
     <Input label="Type The Topic Here" value={topic} onChange={(e)=>setTopic(e.target.value)} />
+    <div className="flex justify-between">
     {!loading?
     <Button className='mt-2' onClick={createBlog}>Create</Button>
     :
     <Button className='mt-2' loading={true}>Loading</Button>  
   }
+  <Button className='mt-2 '>Save</Button>
+    </div>
+    
     
     <div className="mt-3">
     <Typography variant='h2' color="blue-gray">
@@ -66,7 +70,7 @@ function Blog() {
   }
     
     <MarkDown className="mt-2 markdown" placeholder="The result will take 10-15 seconds to load">
-      {blog}
+      {story}
       </MarkDown>
     </div>
     </div>
@@ -75,4 +79,4 @@ function Blog() {
   )
 }
 
-export default Blog
+export default Story

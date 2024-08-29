@@ -35,10 +35,45 @@ async function run(topic) {
     const out={
         "res":`${text}`
     }
-    console.log(text);
+    
     return text
   }
-
+  async function email(topic) {
+    const prompt = `Output a short email template on the topic given by the user as:${topic} make sure the output is in JSON Format with the following schema:
+    {
+    title:{type:string},
+    content:{type:string}
+    }
+    
+    `
+  
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+    const out={
+        "res":`${text}`
+    }
+   
+    return text
+  }
+  async function story(topic) {
+    const prompt = `Output a 500 word short story  on the topic given by the user as:${topic} make sure the output is in JSON Format with the following schema:
+    {
+    title:{type:string},
+    content:{type:string}
+    }
+    
+    `
+  
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+    const out={
+        "res":`${text}`
+    }
+    
+    return text
+  }
   db.sequelize.sync().then((req)=>{
     app.listen(8000,()=>{
         console.log("server running on port 8000")
@@ -53,6 +88,18 @@ app.post("/createblog",async (req,res)=>{
     console.log(JSON.stringify(result))
     
     res.status(200).send(result)
+})
+app.post("/createemail",async (req,res)=>{
+  const result=await email(req.body.title)
+  console.log(JSON.stringify(result))
+  
+  res.status(200).send(result)
+})
+app.post("/createstory",async (req,res)=>{
+  const result=await story(req.body.title)
+  console.log(JSON.stringify(result))
+  
+  res.status(200).send(result)
 })
 app.post("/register",async (req,res)=>{
     const salt=await bcrypt.genSalt(10)
@@ -70,7 +117,7 @@ app.post('/login',async(req,res,next)=>{
     if(user){
        const password_valid = await bcrypt.compare(req.body.password,user.password);
        if(password_valid){
-           token = jwt.sign({ "id" : user.id,"email" : user.email,"firstName":user.firstName },process.env.SECRET);
+           token = jwt.sign({ "id" : user.id,"email" : user.email,"firstName":user.firstName,"lastName":user.lastName },process.env.SECRET);
            res.status(200).json({ token : token });
        } else {
          res.status(400).json({ error : "Password Incorrect" });

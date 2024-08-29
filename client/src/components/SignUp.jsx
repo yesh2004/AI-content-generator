@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Typography, Input, Button } from "@material-tailwind/react";
 import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 function SignUp() {
     const [passwordShown, setPasswordShown] = useState(false);
     const [firstname,setFirstName]=useState("")
@@ -11,7 +12,7 @@ function SignUp() {
     const [password,setPassword]=useState("")
 
     const togglePasswordVisiblity = () => setPasswordShown((cur) => !cur);
-    
+    const navigate=useNavigate()
     const register=()=>{
         const data={
             "firstName":firstname,
@@ -21,8 +22,8 @@ function SignUp() {
         }
         axios.post(`http://localhost:8000/register`,data)
         .then(res=>{
-            console.log(res)
-            alert("Succesfully registered")
+            navigate("/login")
+            
         }).catch(err=>console.log(err))
     }
 
@@ -146,27 +147,10 @@ function SignUp() {
               sign up
             </Button>
             <div className="!mt-4 flex justify-end">
-              <Typography
-                as="a"
-                href="#"
-                color="blue-gray"
-                variant="small"
-                className="font-medium"
-              >
-                Forgot password
-              </Typography>
+              
             </div>
             
-            <Typography
-              variant="small"
-              color="gray"
-              className="!mt-4 text-center font-normal"
-            >
-              Not registered?{" "}
-              <a href="#" className="font-medium text-gray-900">
-                Create account
-              </a>
-            </Typography>
+            
           </form>
         </div>
       </section>

@@ -1,5 +1,5 @@
 import Nav from '../components/Nav'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
     Card,
   CardBody,
@@ -9,11 +9,13 @@ import {
     Typography,
     Input,
   } from "@material-tailwind/react";
-
+import { Context } from '../App';
   
 function Home() {
   const [isAuth,setIsAuth]=useState(false)
-
+  const[userDetail,setUserDetail]=useContext(Context)
+  
+  console.log("context:",userDetail)
   useEffect(()=>{
     const token=localStorage.getItem("token");
     if(token && token.length>0){

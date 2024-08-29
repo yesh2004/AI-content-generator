@@ -1,16 +1,18 @@
-import { useState } from "react";
-
+import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import { Typography, Input, Button } from "@material-tailwind/react";
 import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import {jwtDecode} from "jwt-decode"
+import { Context } from "../App";
 
 function LoginForm() {
     const [passwordShown, setPasswordShown] = useState(false);
     const togglePasswordVisiblity = () => setPasswordShown((cur) => !cur);
     const [email,setEmail]=useState("")
     const [password,setPassword]=useState("")
+    const [userDetail,setUserDetail]=useContext(Context)
     const navigate=useNavigate()
     const login=()=>{
         const data={
@@ -22,7 +24,16 @@ function LoginForm() {
         .then((res)=>{
             
             localStorage.setItem("token",res.data.token)
-            navigate('/')
+            const decode=jwtDecode(res.data.token)
+            const userData={
+              id:decode.id,
+              firstName:decode.firstName,
+              lastName:decode.lastName,
+              email:decode.email
+            }
+            setUserDetail(userData)
+            console.log(decode)
+            navigate('/dashboard')
             
         }).catch((err)=>console.log(err))
     }
@@ -113,9 +124,9 @@ function LoginForm() {
               className="!mt-4 text-center font-normal"
             >
               Not registered?{" "}
-              <a href="#" className="font-medium text-gray-900">
+              <Link to="/register" className="font-medium text-gray-900">
                 Create account
-              </a>
+              </Link>
             </Typography>
           </form>
         </div>
