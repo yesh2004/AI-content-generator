@@ -31,11 +31,9 @@ function SignUp() {
       <section className="grid text-center h-screen items-center p-8">
         <div>
           <Typography variant="h3" color="blue-gray" className="mb-2">
-            Sign In
+            Sign Up
           </Typography>
-          <Typography className="mb-16 text-gray-600 font-normal text-[18px]">
-            Enter your email and password to sign in
-          </Typography>
+          
           <form action="#" className="mx-auto max-w-[24rem] text-left">
           <div className="mb-6">
               <label htmlFor="email">
