@@ -5,7 +5,7 @@ const bcrypt=require("bcryptjs")
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const { GoogleGenerativeAI} = require("@google/generative-ai");
-const {User} =require("./models")
+const {User,Project} =require("./models")
 dotenv.config();
 const app=express()
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -101,6 +101,24 @@ app.post("/createstory",async (req,res)=>{
   
   res.status(200).send(result)
 })
+  
+app.post("/project",async (req,res)=>{
+  const proj={
+    type:req.body.type,
+    title:req.body.title,
+    content:req.body.content,
+    userid:req.body.userid
+  }
+  const created_project=await Project.create(proj)
+  res.status(201).json(created_project)
+})
+app.post("/getprojects",async(req,res)=>{
+  console.log("User:",req.body.userid)
+  const projects=await Project.findAll({where:{userid:req.body.userid}});
+  res.status(200).json(projects)
+})
+
+  
 app.post("/register",async (req,res)=>{
     const salt=await bcrypt.genSalt(10)
     const usr = {

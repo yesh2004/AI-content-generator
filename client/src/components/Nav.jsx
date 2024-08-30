@@ -31,9 +31,9 @@ function Nav({isAuth}) {
           color="blue-gray"
           className="p-1 font-normal"
         >
-          <a href="#" className="flex items-center">
+          <Link>
             Pages
-          </a>
+          </Link>
         </Typography>
         <Typography
           as="li"
@@ -74,10 +74,12 @@ function Nav({isAuth}) {
           <div className="flex items-center justify-between text-blue-gray-900">
             <Typography
               as="a"
-              href="#"
+              
               className="mr-4 cursor-pointer py-1.5 font-bold uppercase text-[18px] text-[#4d8ef7]"
             >
+              <Link to="/">
               Contentify
+              </Link>
             </Typography>
             
             {
