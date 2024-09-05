@@ -1,7 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+*{
+  font-family: "Kanit", sans-serif;;
+}
 .sec{
   margin: 0 auto;
   margin-top: 1.5rem;
@@ -22,7 +24,7 @@
   height: 500px;
 }
 body{
-  font-family: "Outfit",sans-serif;
+  font-family: "Kanit",sans-serif !important;
 }
 .avatar{
   border:solid 1px gray;

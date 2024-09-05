@@ -45,8 +45,9 @@ function Story() {
     }).catch(err=>console.log(err))
      }
     //<Textarea size="lg" className='disabled !h-[600px] text-[18px]' placeholder="The result will take 10-15 seconds to load" value={blog}/>
-    const createBlog=()=>{
+    const create=()=>{
       isLoading(true)
+      setSaved(false)
       axios.post("http://localhost:8000/createstory",{"title":`${topic}`})
       .then((res)=>{
         console.log(JSON.stringify(res.data))
@@ -76,7 +77,7 @@ function Story() {
     <Input label="Type The Topic Here" value={topic} onChange={(e)=>setTopic(e.target.value)} />
     <div className="flex justify-between">
     {!loading?
-    <Button className='mt-2' onClick={createBlog}>Create</Button>
+    <Button className='mt-2' onClick={create}>Create</Button>
     :
     <Button className='mt-2' loading={true}>Loading</Button>  
   }

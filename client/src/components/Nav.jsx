@@ -123,7 +123,7 @@ function Nav({isAuth}) {
           <span>Logout</span>
         </Button>
         :
-        <Button fullWidth variant="gradient" size="sm" className="">
+        <Button fullWidth variant="gradient" size="lg" className="">
               <span>Login</span>
             </Button>  
 

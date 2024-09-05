@@ -49,8 +49,9 @@ function Blog() {
       })
       .catch((err) => console.log(err));
   };
-  const createBlog = () => {
+  const create = () => {
     isLoading(true);
+    setSaved(false)
     axios
       .post("http://localhost:8000/createblog", { title: `${topic}` })
       .then((res) => {
@@ -83,7 +84,7 @@ function Blog() {
         />
         <div className="flex justify-between">
           {!loading ? (
-            <Button className="mt-2" onClick={createBlog}>
+            <Button className="mt-2" onClick={create}>
               Create
             </Button>
           ) : (

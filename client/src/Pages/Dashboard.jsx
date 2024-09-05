@@ -86,9 +86,14 @@ function Dashboard() {
           AI Tools we offer:
         </Typography>
         <Tabs value="services">
-          <TabsHeader>
+          <TabsHeader
+          className="font-900 uppercase"
+          indicatorProps={{
+            className: "bg-[#90b7f5] shadow-none !text-white !font-bold",
+          }}
+          >
             <Tab value="services">Services</Tab>
-            <Tab value="project">Project</Tab>
+            <Tab value="project">Saved</Tab>
           </TabsHeader>
           <TabsBody
             animate={{
@@ -178,9 +183,10 @@ function Dashboard() {
                             handleOpen();
                             setSelected(project);
                           }}
-                          variant="gradient"
+                          
+                          className="mt-1 w-full bg-[#4d8ef7]"
                         >
-                          Open Dialog
+                          Open 
                         </Button>
                         <Dialog open={open} size="xl" className="">
                           <DialogHeader>
