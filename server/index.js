@@ -114,7 +114,7 @@ app.post("/project",async (req,res)=>{
 })
 app.post("/getprojects",async(req,res)=>{
   console.log("User:",req.body.userid)
-  const projects=await Project.findAll({where:{userid:req.body.userid}});
+  const projects=await Project.findAll({where:{userid:req.body.userid},order:[["id","DESC"]]});
   res.status(200).json(projects)
 })
 

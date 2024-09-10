@@ -34,10 +34,10 @@ function Home() {
             <Typography
               variant="h1"
               color="blue-gray"
-              className="mx-auto my-6 w-full leading-snug  text-[36px] lg:max-w-3xl lg:!text-7xl"
+              className="mx-auto my-6 w-full leading-snug  text-[36px] lg:max-w-3xl lg:!text-7xl kanit"
             >
               The Fastest Way To Write Your Content Using{" "}
-              <span className="text-[#4d8ef7] leading-snug ">AI</span>.
+              <span className="text-[#4d8ef7] leading-snug kanit ">AI</span>.
             </Typography>
             <Link to="/dashboard">
               <Button className="bg-[#4d8ef7] text-md">Get Started</Button>

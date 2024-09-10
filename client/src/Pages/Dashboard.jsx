@@ -63,33 +63,33 @@ function Dashboard() {
         .catch((err) => console.log(err));
     }
   }, [userDetail]);
-  if (projects.length > 0) {
-    Object.values(projects).map((project) => {
-      console.log(project.title);
-    });
+  const convertDate=(date)=>{
+    const formattedDate = new Date(date).toISOString().split('T')[0];
+    return formattedDate
   }
   return (
     <>
       <Nav isAuth={isAuth} />
       <div className="sec">
-        <div className=" flex">
+        <div className=" flex shadow-xl p-2 rounded-md">
           <img
             src={avatar}
             alt=""
             className="h-[100px] mr-4 avatar border-solid border-black rounded"
           />
-          <Typography variant="h2" className="mt-3">
+          <Typography variant="h2" className="mt-3 kanit">
             HI! {userDetail.firstName} <span>{userDetail.lastName}</span>
+            <p className="text-[16px] text-gray-600 ">Email:{userDetail.email}</p>
           </Typography>
         </div>
-        <Typography variant="h2" className=" mt-2  text-[28px]">
+        <Typography variant="h2" className=" mt-2  text-[28px] kanit">
           AI Tools we offer:
         </Typography>
         <Tabs value="services">
           <TabsHeader
           className="font-900 uppercase"
           indicatorProps={{
-            className: "bg-[#90b7f5] shadow-none !text-white !font-bold",
+            className: "bg-[#90b7f5] shadow-none text-white !font-bold",
           }}
           >
             <Tab value="services">Services</Tab>
@@ -106,10 +106,10 @@ function Dashboard() {
               <div className="grid mb-10    lg:grid-cols-3   sm:grid-cols-1 sm:ml ">
                 <Card className=" w-96">
                   <CardBody>
-                    <Typography variant="h5" color="blue-gray" className="mb-2">
+                    <Typography variant="h5" color="blue-gray" className="mb-2 text-xl font-bold kanit">
                       Blog Writer
                     </Typography>
-                    <Typography>
+                    <Typography className="kanit">
                       Craft engaging, SEO-friendly blog posts effortlessly. Our
                       AI Blog Writer ensures your content is well-structured and
                       tailored to your audience, helping you consistently
@@ -126,10 +126,10 @@ function Dashboard() {
                 </Card>
                 <Card className=" w-96">
                   <CardBody>
-                    <Typography variant="h5" color="blue-gray" className="mb-2">
+                    <Typography variant="h5" color="blue-gray" className="mb-2 kanit">
                       Email Template
                     </Typography>
-                    <Typography>
+                    <Typography className="kanit">
                       Generate polished, customized email templates for any
                       occasion. Communicate effectively and professionally with
                       ease using our AI-driven Email Template Creator.
@@ -145,10 +145,10 @@ function Dashboard() {
                 </Card>
                 <Card className=" w-96">
                   <CardBody>
-                    <Typography variant="h5" color="blue-gray" className="mb-2">
+                    <Typography variant="h5" color="blue-gray" className="mb-2 kanit">
                       Story Writer
                     </Typography>
-                    <Typography>
+                    <Typography className="kanit">
                       Bring your imagination to life with our AI Short Story
                       Writer. Create original, captivating tales from simple
                       prompts in just a few moments.
@@ -171,11 +171,15 @@ function Dashboard() {
               <div className="grid mb-10    lg:grid-cols-3   sm:grid-cols-1 sm:ml ">
                 {projects && projects.length > 0 ? (
                   projects.map((project) => (
-                    <Card className=" w-96 mb-2">
+                    <Card className=" w-96 mb-2 shadow-md">
                       <CardBody>
                         <h2 className="text-lg font-bold">{project.title}</h2>
                         <p className="text-gray text-sm italic">
                           Type:{project.type}
+                          
+                        </p>
+                        <p className="text-gray text-sm italic">
+                        {new Date(project.createdAt).toLocaleDateString('en-CA')}
                         </p>
                         <p>{project.content.substring(0, 200)}</p>
                         <Button
@@ -188,12 +192,24 @@ function Dashboard() {
                         >
                           Open 
                         </Button>
-                        <Dialog open={open} size="xl" className="">
+                        
+                      </CardBody>
+                    </Card>
+                  ))
+                ) : (
+                  <p>No projects</p>
+                )}
+              </div>
+            </TabPanel>
+          </TabsBody>
+        </Tabs>
+        <Dialog open={open} size="xl" className="">
                           <DialogHeader>
                             <p>{selected.title}</p>
                           </DialogHeader>
                           <DialogBody className="">
                             <p>Type:{selected.type}</p>
+                            <p>Created at: {new Date(selected.createdAt).toLocaleDateString('en-CA')}</p>
                             <Markdown className="mt-2 markdown_dialog overflow-scroll text-black">
                               {selected.content}
                             </Markdown>
@@ -209,16 +225,6 @@ function Dashboard() {
                             </Button>
                           </DialogFooter>
                         </Dialog>
-                      </CardBody>
-                    </Card>
-                  ))
-                ) : (
-                  <p>No projects</p>
-                )}
-              </div>
-            </TabPanel>
-          </TabsBody>
-        </Tabs>
       </div>
     </>
   );
