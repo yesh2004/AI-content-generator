@@ -70,7 +70,7 @@ function Nav({isAuth}) {
    
     return (
       <div className="   max-h-[768px] w-[100%]  mt-5 bg-white ">
-        <Navbar className="sticky top-0 z-10 h-max max-w-full  bg-white rounded-lg px-4 py-1 lg:px-6 lg:py-4 border-solid lg:border-sky-50" >
+        <Navbar className="sticky  z-10 h-max max-w-full  bg-white rounded-lg px-4 py-1 lg:px-6 lg:py-4 lg:border-solid lg:border-2 border-gray-200 shadow-xl" >
           <div className="flex items-center justify-between text-blue-gray-900">
             <Typography
               as="a"

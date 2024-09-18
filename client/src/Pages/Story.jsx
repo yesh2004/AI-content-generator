@@ -50,8 +50,6 @@ function Story() {
       setSaved(false)
       axios.post("http://localhost:8000/createstory",{"title":`${topic}`})
       .then((res)=>{
-        console.log(JSON.stringify(res.data))
-        console.log(res.data["title"])
         setStory(res.data["content"])
         setTitle(res.data["title"])
         isLoading(false)

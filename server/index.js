@@ -21,7 +21,7 @@ const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash",generationCon
 }});
 
 async function run(topic) {
-    const prompt = `Output a 300 word blog  on the topic given by the user as:${topic} make sure the output is in JSON Format with the following schema:
+    const prompt = `Output a 500 word blog  on the topic given by the user as:${topic} make sure the output is in JSON Format with the following schema:
     {
     title:{type:string},
     content:{type:string}
